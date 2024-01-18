@@ -1,0 +1,17 @@
+<mapper namespace="user">
+
+    <!--唯一标识：namespace.id statementId-->
+    <!--查询所有-->
+    <select id="selectList" resultType="com.xiw.pojo.User">
+        select * from user
+    </select>
+    <!--按条件进行查询-->
+    <!--
+    User user = new User ();
+    user.setId (1);
+    user.setUserName ("tom");
+    -->
+    <select id="selectOne" resultType="com.xiw.pojo.User" parameterType="com.xiw.pojo.User">
+        select * from user where id = #{id} and username = #{username}
+    </select>
+</mapper>
