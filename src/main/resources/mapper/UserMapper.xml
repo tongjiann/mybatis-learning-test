@@ -1,8 +1,8 @@
-<mapper namespace="user">
+<mapper namespace="com.xiw.dao.IUserDao">
 
     <!--唯一标识：namespace.id statementId-->
     <!--查询所有-->
-    <select id="selectList" resultType="com.xiw.pojo.User">
+    <select id="findAll" resultType="com.xiw.pojo.User">
         select * from user
     </select>
     <!--按条件进行查询-->
@@ -11,7 +11,7 @@
     user.setId (1);
     user.setUserName ("tom");
     -->
-    <select id="selectOne" resultType="com.xiw.pojo.User" parameterType="com.xiw.pojo.User">
+    <select id="findByCondition" resultType="com.xiw.pojo.User" parameterType="com.xiw.pojo.User">
         select * from user where id = #{id} and username = #{username}
     </select>
 </mapper>

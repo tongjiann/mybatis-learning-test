@@ -1,5 +1,6 @@
 package com.xiw.test;
 
+import com.xiw.dao.IUserDao;
 import com.xiw.io.Resources;
 import com.xiw.pojo.User;
 import com.xiw.sqlSession.SqlSession;
@@ -31,10 +32,29 @@ public class IPersistentTest {
         User user = new User();
         user.setId(1);
         user.setUsername("Judy");
-        User u = sqlSession.selectOne("user.selectOne", user);
+        User u = sqlSession.selectOne("com.xiw.dao.IUserDao.findByCondition", user);
         System.out.println(u);
 
-        List<User> list = sqlSession.selectList("user.selectList", null);
+        List<User> list = sqlSession.selectList("com.xiw.dao.IUserDao.findAll", null);
+        System.out.println(list);
+
+        sqlSession.close();
+    }
+
+    @Test
+    public void test2() throws Exception {
+        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(1);
+        user.setUsername("Judy");
+        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+        User res = mapper.findByCondition(user);
+        System.out.println(res);
+        List<User> list = mapper.findAll();
         System.out.println(list);
 
         sqlSession.close();
